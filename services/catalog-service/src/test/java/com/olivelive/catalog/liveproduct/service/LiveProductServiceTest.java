@@ -126,7 +126,7 @@ class LiveProductServiceTest {
     }
 
     @Test
-    void createLiveProduct_duplicate_throwsDuplicateLiveProduct() {
+    void createLiveProduct_duplicateProductMapping_throwsDuplicateLiveProduct() {
         Product product = Product.create("이어폰", null, 10000, 100);
         when(productRepository.findById(product.getId())).thenReturn(Optional.of(product));
         when(liveProductRepository.existsByLiveSessionIdAndProductId(SESSION_ID, product.getId())).thenReturn(true);
@@ -137,6 +137,23 @@ class LiveProductServiceTest {
                 .isInstanceOf(CatalogException.class)
                 .satisfies(e -> assertThat(((CatalogException) e).getErrorCode())
                         .isEqualTo(ErrorCode.DUPLICATE_LIVE_PRODUCT));
+
+        verify(liveProductRepository, never()).save(any());
+    }
+
+    @Test
+    void createLiveProduct_duplicateDisplayOrder_throwsDuplicateDisplayOrder() {
+        Product product = Product.create("이어폰", null, 10000, 100);
+        when(productRepository.findById(product.getId())).thenReturn(Optional.of(product));
+        when(liveProductRepository.existsByLiveSessionIdAndProductId(SESSION_ID, product.getId())).thenReturn(false);
+        when(liveProductRepository.existsByLiveSessionIdAndDisplayOrder(SESSION_ID, 1)).thenReturn(true);
+
+        var request = new CreateLiveProductRequest(SESSION_ID, product.getId(), 1);
+
+        assertThatThrownBy(() -> liveProductService.createLiveProduct(request))
+                .isInstanceOf(CatalogException.class)
+                .satisfies(e -> assertThat(((CatalogException) e).getErrorCode())
+                        .isEqualTo(ErrorCode.DUPLICATE_DISPLAY_ORDER));
 
         verify(liveProductRepository, never()).save(any());
     }

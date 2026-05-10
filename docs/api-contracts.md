@@ -185,6 +185,7 @@ catalog-service는 매핑을 저장하기 전에 아래 순서로 검증한다.
 | 404 | `LIVE_SESSION_NOT_FOUND` | live_session_id가 live-control-service에 존재하지 않음 |
 | 409 | `LIVE_SESSION_NOT_ATTACHABLE` | 세션 상태가 상품 추가를 허용하지 않음 (예: ended, archived) |
 | 409 | `DUPLICATE_LIVE_PRODUCT` | (live_session_id, product_id) 쌍이 이미 존재 |
+| 409 | `DUPLICATE_DISPLAY_ORDER` | 같은 세션 내에 동일한 display_order가 이미 존재 |
 
 ---
 

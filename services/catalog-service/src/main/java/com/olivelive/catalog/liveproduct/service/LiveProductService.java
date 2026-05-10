@@ -45,11 +45,18 @@ public class LiveProductService {
         // 3 & 4. Live session existence and attachable state (delegated to live-control-service)
         liveControlClient.validateSessionAttachable(request.liveSessionId());
 
-        // 5. Duplicate mapping check
+        // 5. Duplicate (live_session_id, product_id) check
         if (liveProductRepository.existsByLiveSessionIdAndProductId(
                 request.liveSessionId(), request.productId())) {
             throw new CatalogException(ErrorCode.DUPLICATE_LIVE_PRODUCT,
                     "Product already mapped to this live session");
+        }
+
+        // 6. Duplicate (live_session_id, display_order) check
+        if (liveProductRepository.existsByLiveSessionIdAndDisplayOrder(
+                request.liveSessionId(), request.displayOrder())) {
+            throw new CatalogException(ErrorCode.DUPLICATE_DISPLAY_ORDER,
+                    "Display order " + request.displayOrder() + " is already taken in this live session");
         }
 
         LiveProduct liveProduct = LiveProduct.create(

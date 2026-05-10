@@ -89,7 +89,8 @@ CREATE TABLE live_products (
 |------|------|------|
 | live_products_pkey | PRIMARY KEY | id |
 | live_products_product_fk | FOREIGN KEY | product_id → products(id) |
-| live_products_unique_mapping | UNIQUE | (live_session_id, product_id) |
+| live_products_unique_mapping | UNIQUE | (live_session_id, product_id) — 위반 시 `DUPLICATE_LIVE_PRODUCT` |
+| live_products_unique_order | UNIQUE | (live_session_id, display_order) — 위반 시 `DUPLICATE_DISPLAY_ORDER` |
 | live_products_order_check | CHECK | display_order >= 1 |
 
 ### 인덱스

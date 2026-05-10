@@ -72,8 +72,6 @@ Content-Type: `application/json`
   "scheduled_at": "2026-05-20T14:00:00Z",
   "started_at": "2026-05-20T14:01:00Z",
   "ended_at": null,
-  "ivs_channel_arn": "arn:aws:ivs:ap-northeast-2:123456789012:channel/abcDefGh",
-  "ivs_playback_url": "https://a1b2c3d4e5f6.ap-northeast-2.playback.live-video.net/api/video/v1/...",
   "created_at": "2026-05-10T09:00:00Z",
   "updated_at": "2026-05-20T14:01:00Z"
 }

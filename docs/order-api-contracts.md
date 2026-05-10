@@ -30,7 +30,7 @@ Content-Type: `application/json`
 
 | 필드 | 타입 | 필수 | 제약 |
 |------|------|------|------|
-| buyer_id | string | Y | non-empty string |
+| buyer_id | string | Y | 1–100자 |
 | live_session_id | string | N | opaque 문자열; order-service는 형식·유효성을 검증하지 않음 |
 | items | array | Y | 1개 이상 |
 | items[].product_id | string | Y | non-empty string; catalog-service의 opaque identifier |

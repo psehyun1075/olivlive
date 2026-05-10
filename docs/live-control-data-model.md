@@ -10,6 +10,7 @@ DB: PostgreSQL
 
 IVS 채널/플레이백 정보는 별도 테이블 없이 이 테이블의 컬럼으로 저장한다.
 live-control-service는 미디어 전송을 제어하지 않으며, IVS ARN과 플레이백 URL을 참조 목적으로만 보관한다.
+`ivs_channel_arn`과 `ivs_playback_url`은 내부 linkage metadata 컬럼이며, public create API(`POST /api/v1/live-sessions`)의 입력 필드가 아니다.
 
 ```sql
 CREATE TABLE live_sessions (

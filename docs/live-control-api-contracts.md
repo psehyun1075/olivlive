@@ -17,8 +17,7 @@ Content-Type: `application/json`
 {
   "title": "여름 특가 라이브",
   "host_id": "host_01HXYZ",
-  "scheduled_at": "2026-05-20T14:00:00Z",
-  "ivs_channel_arn": "arn:aws:ivs:ap-northeast-2:123456789012:channel/abcDefGh"
+  "scheduled_at": "2026-05-20T14:00:00Z"
 }
 ```
 
@@ -27,7 +26,6 @@ Content-Type: `application/json`
 | title | string | Y | 1–200자 |
 | host_id | string | Y | non-empty |
 | scheduled_at | string (ISO 8601) | N | 예정 방송 시각; 과거 시각도 허용 |
-| ivs_channel_arn | string | N | IVS 채널 ARN; 미지정 시 NULL 저장 |
 
 **Response: 201 Created**
 
@@ -40,8 +38,6 @@ Content-Type: `application/json`
   "scheduled_at": "2026-05-20T14:00:00Z",
   "started_at": null,
   "ended_at": null,
-  "ivs_channel_arn": "arn:aws:ivs:ap-northeast-2:123456789012:channel/abcDefGh",
-  "ivs_playback_url": null,
   "created_at": "2026-05-10T09:00:00Z",
   "updated_at": "2026-05-10T09:00:00Z"
 }
@@ -178,9 +174,6 @@ catalog-service가 상품을 라이브 세션에 매핑하기 전에 세션 존�
 | 상태 코드 | 에러 코드 | 사유 |
 |-----------|-----------|------|
 | 404 | `LIVE_SESSION_NOT_FOUND` | 해당 ID의 세션 없음 |
-
-> catalog-service는 `attachable: false` 응답을 받으면 `409 LIVE_SESSION_NOT_ATTACHABLE`을 호출자에게 반환한다.
-> `404`를 받으면 `404 LIVE_SESSION_NOT_FOUND`를 반환한다.
 
 ---
 

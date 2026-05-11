@@ -16,6 +16,7 @@ public class GlobalExceptionHandler {
             case INVALID_REQUEST, INVALID_PRODUCT_STATUS -> HttpStatus.BAD_REQUEST;
             case PRODUCT_NOT_FOUND, LIVE_SESSION_NOT_FOUND -> HttpStatus.NOT_FOUND;
             case LIVE_SESSION_NOT_ATTACHABLE, DUPLICATE_LIVE_PRODUCT, DUPLICATE_DISPLAY_ORDER -> HttpStatus.CONFLICT;
+            case LIVE_CONTROL_UNAVAILABLE -> HttpStatus.BAD_GATEWAY;
         };
         return ResponseEntity.status(status)
                 .body(ErrorResponse.of(ex.getErrorCode(), ex.getMessage()));

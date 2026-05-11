@@ -40,3 +40,6 @@ management:
 catalog:
   live-control:
     stub: true
+    base-url: ${LIVE_CONTROL_BASE_URL:http://live-control-service}
+    connect-timeout-ms: 2000
+    read-timeout-ms: 5000

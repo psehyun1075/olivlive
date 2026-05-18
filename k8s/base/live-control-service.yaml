@@ -55,9 +55,12 @@ kind: Service
 metadata:
   name: live-control-service
   namespace: olivelive
+  labels:
+    app: live-control-service
 spec:
   selector:
     app: live-control-service
   ports:
-    - port: 8080
+    - name: http
+      port: 8080
       targetPort: 8080

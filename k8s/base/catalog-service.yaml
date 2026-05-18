@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalog-service
+  namespace: olivelive
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: catalog-service
+  template:
+    metadata:
+      labels:
+        app: catalog-service
+    spec:
+      containers:
+        - name: catalog-service
+          image: 890742607521.dkr.ecr.ap-northeast-2.amazonaws.com/catalog-service:prod
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SERVER_PORT
+              value: "8080"
+            - name: DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: app-db
+                  key: CATALOG_DB_URL
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: app-db
+                  key: DB_USERNAME
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-db
+                  key: DB_PASSWORD
+            - name: CATALOG_LIVE_CONTROL_STUB
+              value: "false"
+            - name: LIVE_CONTROL_BASE_URL
+              value: "http://live-control-service:8080"
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 40
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalog-service
+  namespace: olivelive
+spec:
+  selector:
+    app: catalog-service
+  ports:
+    - port: 8080
+      targetPort: 8080

@@ -3,6 +3,17 @@ grafana:
     type: ClusterIP
   persistence:
     enabled: false
+  envFromSecret: grafana-smtp
+
+  grafana.ini:
+    smtp:
+      enabled: true
+      host: smtp.gmail.com:587
+      user: $__env{GF_SMTP_USER}
+      password: $__env{GF_SMTP_PASSWORD}
+      from_address: psh4960065@gmail.com
+      from_name: OliveLive Grafana
+      startTLS_policy: MandatoryStartTLS
 
 prometheus:
   prometheusSpec:

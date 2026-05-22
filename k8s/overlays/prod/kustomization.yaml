@@ -1,13 +1,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-
 resources:
-  - ../../base
-
+- ../../base
 images:
-  - name: 890742607521.dkr.ecr.ap-northeast-2.amazonaws.com/catalog-service
-    newTag: prod
-  - name: 890742607521.dkr.ecr.ap-northeast-2.amazonaws.com/live-control-service
-    newTag: prod
-  - name: 890742607521.dkr.ecr.ap-northeast-2.amazonaws.com/order-service
-    newTag: prod
+- name: 890742607521.dkr.ecr.ap-northeast-2.amazonaws.com/catalog-service
+  newTag: 1a2e685f11112a82ca9283f1e363311b26687b4e
+- name: 890742607521.dkr.ecr.ap-northeast-2.amazonaws.com/live-control-service
+  newTag: 1a2e685f11112a82ca9283f1e363311b26687b4e
+- name: 890742607521.dkr.ecr.ap-northeast-2.amazonaws.com/order-service
+  newTag: 1a2e685f11112a82ca9283f1e363311b26687b4e
